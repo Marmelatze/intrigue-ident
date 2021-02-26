@@ -25,14 +25,15 @@ module Intrigue
         checks.each do |check|
           results << match_ssh_response_hash(check, details)
         end
-        # require "pry"; binding.pry
 
         # Run recog across the banner
-        # recog_results = recog_match_ssh_banner(banner_string)
 
-        { "fingerprint" => (results).uniq.compact, "banner" => banner_string, "content" => [] }
+        # ---comment out for now, recog needs fixing. This should allow for the SSH to work with atleast our own checks---
+        recog_results = recog_match_ssh_banner(banner_string)
 
-        # { "fingerprint" => (results + recog_results).uniq.compact, "banner" => banner_string, "content" => [] }
+        { "fingerprint" => (results + recog_results).uniq.compact, "banner" => banner_string, "content" => [] }
+
+        # { "fingerprint" => (results).uniq.compact, "banner" => banner_string, "content" => [] }
       end
 
       private
@@ -55,7 +56,6 @@ module Intrigue
         else
           out = nil
         end
-
         "#{out}".encode("UTF-8", invalid: :replace, undef: :replace, replace: "?")
       end
     end
